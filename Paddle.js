@@ -60,7 +60,7 @@ class Paddle {
      * @memberof Paddle
      */
     reset() {
-        this.y = (canvas.height / 2) - (this.height / 2);
+        this.y = canvas.height / 2 - this.height / 2;
         return this;
     }
 
@@ -90,4 +90,4 @@ class Paddle {
         this.x = canvas.width - this.width;
         return this;
     }
-};
+}

@@ -7,7 +7,7 @@ class Ball {
         this._speed = {
             x: xSpeed || Ball.DEFAULT_SPEED.x,
             y: ySpeed || Ball.DEFAULT_SPEED.y
-        }
+        };
         this._color = color || 'white';
     }
 
@@ -15,7 +15,7 @@ class Ball {
         return {
             x: -10,
             y: 4
-        }
+        };
     }
 
     get x() {
@@ -23,7 +23,7 @@ class Ball {
     }
 
     set x(x) {
-        this._x = x
+        this._x = x;
     }
 
     get y() {
@@ -31,7 +31,7 @@ class Ball {
     }
 
     set y(y) {
-        this._y = y
+        this._y = y;
     }
 
     get radius() {
@@ -39,14 +39,14 @@ class Ball {
     }
 
     set radius(radius) {
-        this._radius = radius
+        this._radius = radius;
     }
     get speed() {
         return this._speed;
     }
 
     set speed(speed) {
-        this._speed = speed
+        this._speed = speed;
     }
 
     get color() {
@@ -54,33 +54,41 @@ class Ball {
     }
 
     set color(color) {
-        this._color = color
+        this._color = color;
     }
 
     get reachedSideX() {
         const paddle = this.x > canvas.width / 2 ? rightPaddle : leftPaddle;
-        if ((this.x + this.speed.x) + this.radius > canvas.width ||
-            (this.x + this.speed.x) - this.radius < 0)
+        if (this.x + this.speed.x + this.radius > canvas.width ||
+            this.x + this.speed.x - this.radius < 0)
             return true;
         else
-            return ((this.x + this.speed.x) + this.radius + paddle.width > canvas.width ||
-                    (this.x + this.speed.x) - paddle.width - this.radius < 0) &&
+            return (this.x + this.speed.x + this.radius + paddle.width > canvas.width ||
+                this.x + this.speed.x - paddle.width - this.radius < 0) &&
                 this.blockedByPaddle;
     }
 
     get reachedSideY() {
-        return (this.y + this.speed.y) + this.radius > canvas.height ||
-            (this.y + this.speed.y) - this.radius < 0
+        return this.y + this.speed.y + this.radius > canvas.height ||
+            this.y + this.speed.y - this.radius < 0;
     }
 
     get blockedByPaddle() {
         const paddle = this.x > canvas.width / 2 ? rightPaddle : leftPaddle;
         return this.y > paddle.y &&
-            this.y < paddle.y + paddle.height
+            this.y < paddle.y + paddle.height;
     }
 
     get isAtLeft() {
         return this.x < canvas.width / 2;
+    }
+
+    get xSpeedModulus() {
+        return this._speed.x > 0 ? this._speed.x : this._speed.x * -1;
+    }
+
+    get ySpeedModulus() {
+        return this._speed.y > 0 ? this._speed.y : this._speed.y * -1;
     }
 
     /**
@@ -93,10 +101,10 @@ class Ball {
             this.speed = {
                 x: -Ball.DEFAULT_SPEED.x,
                 y: Ball.DEFAULT_SPEED.y
-            }
+            };
 
-        this.x = (canvas.width / 2);
-        this.y = (canvas.height / 2);
+        this.x = canvas.width / 2;
+        this.y = canvas.height / 2;
         return this;
     }
 
@@ -128,9 +136,9 @@ class Ball {
         this.speed = {
             x: -this.speed.x,
             y: this.speed.y
-        }
+        };
         return this;
-    };
+    }
 
     /**
      * Altera a direção em Y
@@ -143,9 +151,9 @@ class Ball {
         this.speed = {
             x: this.speed.x,
             y: -this.speed.y
-        }
+        };
         return this;
-    };
+    }
 
     /**
      * Desenha no canvas
@@ -171,11 +179,11 @@ class Ball {
      * @memberof Ball
      */
     mirror(factor) {
-        const deltaY = this.y - ((this.isAtLeft ? leftPaddle : rightPaddle).y + (Paddle.DEFAULT_HEIGTH / 2));
+        const deltaY = this.y - ((this.isAtLeft ? leftPaddle : rightPaddle).y + Paddle.DEFAULT_HEIGTH / 2);
         this.speed = {
             x: this.speed.x,
             y: deltaY * factor
-        }
+        };
         return this;
     }
 
